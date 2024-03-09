@@ -1,3 +1,3 @@
 # React + TypeScript + Vite + Tailwind
 project socail app 
-Check out the live demo [here](https://65ec89a9731082b48c956473--darling-crostata-8ef2a5.netlify.app/).
+Check out the live demo [here](https://65eca9f528bd13d20002b57b--eloquent-chebakia-a517b2.netlify.app/).
