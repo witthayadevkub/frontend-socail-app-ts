@@ -16,10 +16,15 @@ const Profile: React.FC = () => {
 
 
     const getUser = async () => {
-        setloading(true)
-        const post = await userById(id)
-        setUser(post)
-        setloading(false)
+        try {
+            setloading(true)
+            const post = await userById(id)
+            setUser(post)
+            setloading(false)
+        } catch (error) {
+            console.error(error)
+        }
+
     }
 
     useEffect(() => {
@@ -28,7 +33,7 @@ const Profile: React.FC = () => {
 
     // console.log(user)
     const activeMenuItem: string = 'your-post';
-    const matchUser:boolean = user?.id === current.user.id
+    const matchUser: boolean = user?.id === current.user.id
     return (
         <div className="max-w-7xl mx-auto w-svw  ">
             {loading ? <div className='grid place-content-center h-screen text-blue-400'><span className="loading loading-dots loading-lg"></span></div> : <div className='grid grid-cols-[1fr_2fr] gap-5  '>
@@ -36,7 +41,7 @@ const Profile: React.FC = () => {
                     <Link to="/"><button className="btn btn-outline btn-accent "><AiFillHome className="text-2xl" />Home</button></Link>
 
                     <div className="grid place-content-center mt-20">
-                        <img src={user?.avatar?user?.avatar:''} alt="" className="size-40" />
+                        <img src={user?.avatar ? user?.avatar : ''} alt="" className="size-40" />
                         <p className="font-semibold text-3xl text-center">{user?.name}</p>
                     </div>
 
@@ -49,7 +54,7 @@ const Profile: React.FC = () => {
                         <div id='your-likePost' className={` cursor-no-drop ${activeMenuItem == 'your-likePost' ? 'border-b-2 border-blue-500 ' : ''}`}>YourLikePost</div>
                     </div>}
 
-                    <PostSection UserPost={user?.posts} getUser={getUser} matchUser={matchUser}/>
+                    <PostSection UserPost={user?.posts} getUser={getUser} matchUser={matchUser} />
                 </div>
             </div>}
 

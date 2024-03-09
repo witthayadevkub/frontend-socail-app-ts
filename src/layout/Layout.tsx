@@ -5,22 +5,25 @@ import RightSection from '../components/RightSection/RightSection';
 import MainSection from '../components/mainSection/MainSection';
 import { useAppDispatch } from '../store/store';
 import { setValueAsync } from '../store/slices/userSlice';
-// import { useSelector } from 'react-redux';
 import { User } from '../interface/interface';
 import { currentUser } from '../functions/Auth';
 
 const Layout: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
-  // const user = useSelector(userReducer)
 
   const fetchData = async () => {
-    setLoading(true)
+    try {
+      setLoading(true)
     const data: User = await currentUser()
-
     //save currentuser
     dispatch(setValueAsync(data))
     setLoading(false)
+
+    } catch (error) {
+      console.error(error)
+    }
+    
   }
 
   useEffect(() => {

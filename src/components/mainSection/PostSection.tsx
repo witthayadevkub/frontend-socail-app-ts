@@ -22,10 +22,10 @@ interface KeyState {
 interface PostSectionProps {
   UserPost: Post[] | undefined;
   matchUser?: boolean;
-  getUser?: ()=>Promise<void>;
+  getUser?: () => Promise<void>;
 }
 
-const PostSection: React.FC<PostSectionProps> = ({ UserPost,getUser, matchUser }) => {
+const PostSection: React.FC<PostSectionProps> = ({ UserPost, getUser, matchUser }) => {
 
   const [removeCard, setRemoveCard] = useState<KeyState>({})
   const [loading, setLoading] = useState(false)
@@ -35,23 +35,25 @@ const PostSection: React.FC<PostSectionProps> = ({ UserPost,getUser, matchUser }
   const [imgMore, setImgMore] = useState<KeyState>({})
 
   const remove = async (id: string) => {
-    setLoading(true)
-    const status: boolean = await removePost(id)
-    if (status) {
-      
+    try {
+      setLoading(true)
+      const status: boolean = await removePost(id)
+      if (status) {
         setLoading(false)
-        if(getUser){
-            await getUser()
+        if (getUser) {
+          await getUser()
         }
-     
-     
-        // window.location.reload()
-     
-    } else {
-      console.log("something went wrong")
-      setLoading(false)
-      // window.location.reload()
+      } else {
+        console.log("something went wrong")
+        setLoading(false)
+         if (getUser) {
+          await getUser()
+        }
+      }
+    } catch (error) {
+      console.log(error)
     }
+
 
   }
 
@@ -64,7 +66,7 @@ const PostSection: React.FC<PostSectionProps> = ({ UserPost,getUser, matchUser }
   };
   // console.log(handleLike)
 
-//  {console.log(UserPost)}
+  //  {console.log(UserPost)}
   return (
     <div>
       {loading ? <div className='grid place-content-center h-svh text-blue-400'><span className="loading loading-spinner loading-lg"></span></div>

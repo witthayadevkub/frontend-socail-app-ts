@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import { logIn } from '../../functions/Auth';
-// import { login, logout } from '../functions/auth';
-// import { useAuthContext } from '../main';
 
 
 const Login = () => {
-    // const { authUser, setAuthUser } = useAuthContext()
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
@@ -42,9 +39,6 @@ const Login = () => {
     const handleGuest = async () => {
         try {
             setLoading(true)
-            // setTimeout(() => {
-            //     setLoading(false)
-            // }, 3000);
             const guestUser = { email: "user@test.com", password: "000000" }
             if (guestUser) {
                 setLoading(true)

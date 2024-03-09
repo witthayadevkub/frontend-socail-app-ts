@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import { signUp } from '../../functions/Auth';
 
-// import { signup } from '../functions/auth';
 const SignUp = () => {
 
 
@@ -31,7 +30,6 @@ const SignUp = () => {
                     password: form.password,
                 })
                 navigate('/login')
-                // console.log(form)
             }
         } catch (err) {
             console.log(err);
