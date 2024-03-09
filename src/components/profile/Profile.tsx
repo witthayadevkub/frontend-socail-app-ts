@@ -26,8 +26,9 @@ const Profile: React.FC = () => {
         getUser()
     }, [])
 
-    const matchIdUser: boolean = user?.id === current.user.id
+    // console.log(user)
     const activeMenuItem: string = 'your-post';
+    const matchUser:boolean = user?.id === current.user.id
     return (
         <div className="max-w-7xl mx-auto w-svw  ">
             {loading ? <div className='grid place-content-center h-screen text-blue-400'><span className="loading loading-dots loading-lg"></span></div> : <div className='grid grid-cols-[1fr_2fr] gap-5  '>
@@ -42,13 +43,13 @@ const Profile: React.FC = () => {
 
                 </div>
                 <div className="p-5">
-                    {matchIdUser && <div className="flex justify-around bg-white mb-5 p-2 rounded-lg font-semibold">
+                    {matchUser && <div className="flex justify-around bg-white mb-5 p-2 rounded-lg font-semibold">
                         <div id='your-post' className={` cursor-pointer ${activeMenuItem == 'your-post' ? 'border-b-2 border-blue-500' : ''}`}>YourPosts</div>
                         <div id='your-friend' className={` cursor-no-drop ${activeMenuItem == 'your-friend' ? 'border-b-2 border-blue-500 cursor-no-drop' : ''}`}>YourFriends</div>
                         <div id='your-likePost' className={` cursor-no-drop ${activeMenuItem == 'your-likePost' ? 'border-b-2 border-blue-500 ' : ''}`}>YourLikePost</div>
                     </div>}
 
-                    <PostSection UserPost={user?.posts} matchIdUser={matchIdUser} />
+                    <PostSection UserPost={user?.posts} getUser={getUser} matchUser={matchUser}/>
                 </div>
             </div>}
 

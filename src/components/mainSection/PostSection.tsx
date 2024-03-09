@@ -14,16 +14,18 @@ import { CiSquareRemove } from "react-icons/ci";
 import { IoTrashBin } from "react-icons/io5";
 
 import { removePost } from '../../functions/Post';
+
 //type
 interface KeyState {
   [key: string]: boolean;
 }
 interface PostSectionProps {
   UserPost: Post[] | undefined;
-  matchIdUser?: boolean;
+  matchUser?: boolean;
+  getUser?: ()=>Promise<void>;
 }
 
-const PostSection: React.FC<PostSectionProps> = ({ UserPost, matchIdUser }) => {
+const PostSection: React.FC<PostSectionProps> = ({ UserPost,getUser, matchUser }) => {
 
   const [removeCard, setRemoveCard] = useState<KeyState>({})
   const [loading, setLoading] = useState(false)
@@ -38,12 +40,17 @@ const PostSection: React.FC<PostSectionProps> = ({ UserPost, matchIdUser }) => {
     if (status) {
       
         setLoading(false)
-        window.location.reload()
+        if(getUser){
+            await getUser()
+        }
+     
+     
+        // window.location.reload()
      
     } else {
       console.log("something went wrong")
       setLoading(false)
-      window.location.reload()
+      // window.location.reload()
     }
 
   }
@@ -57,6 +64,7 @@ const PostSection: React.FC<PostSectionProps> = ({ UserPost, matchIdUser }) => {
   };
   // console.log(handleLike)
 
+//  {console.log(UserPost)}
   return (
     <div>
       {loading ? <div className='grid place-content-center h-svh text-blue-400'><span className="loading loading-spinner loading-lg"></span></div>
@@ -73,9 +81,9 @@ const PostSection: React.FC<PostSectionProps> = ({ UserPost, matchIdUser }) => {
                   <div className="text-xl"><CiMenuKebab /></div>
                 </div>}
 
-                {matchIdUser && <div>
+                {matchUser && <div>
                   {!removeCard[post.id] ? <div>
-                    <IoTrashBin className="text-3xl text-red-500" onClick={() => setRemoveCard({ [post?.id]: true })} />
+                    <IoTrashBin className="text-3xl text-red-500 flex justify-end" onClick={() => setRemoveCard({ [post?.id]: true })} />
                   </div> : <div>
                     <CiSquareRemove className="text-3xl text-red-500 shadow" onClick={() => setRemoveCard({ [post?.id]: false })} />
                     กดปุ่ม remove เพื่อลบ หรือ x เพื่อยกเลิก  <button onClick={() => remove(post?.id)} className="btn btn-error btn-sm text-white">remove</button>
